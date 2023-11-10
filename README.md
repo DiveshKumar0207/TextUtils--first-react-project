@@ -1,11 +1,8 @@
-Certainly! Here's an updated version of the `README.md` with specific changes for the Material Tailwind component library and space for a screenshot:
 
-```markdown
 # TextUtils
 
 TextUtils is a versatile text transformation tool built with React, Vite, and the Material Tailwind component library. It empowers users to manipulate text easily with features such as converting to uppercase, lowercase, capitalizing, and sentence casing. In addition, TextUtils offers the ability to copy transformed text to the clipboard and download it as a .txt file.
 
-![TextUtils Screenshot](path/to/your/project/screenshot.png)
 
 ## Features
 
@@ -14,6 +11,10 @@ TextUtils is a versatile text transformation tool built with React, Vite, and th
   - Convert text to lowercase.
   - Capitalize text.
   - Sentence case text.
+
+- **Text Analysis:**
+  - Calculate word count.
+  - Estimate reading time.
 
 - **Convenient Actions:**
   - Copy transformed text to the clipboard.
@@ -24,7 +25,8 @@ TextUtils is a versatile text transformation tool built with React, Vite, and th
 - **React:** A declarative, efficient, and flexible JavaScript library for building user interfaces.
 - **Vite:** A fast frontend development tool that supports React, Vue, and more.
 - **Material Tailwind:** A Material Design component library for Tailwind CSS.
-   ```
+ 
+![TextUtils Screenshot](./src/assets/img/demo.jpeg)
 
 ## Getting Started
 
@@ -49,7 +51,7 @@ TextUtils is a versatile text transformation tool built with React, Vite, and th
    npm run dev
    ```
 
-   The application will be accessible at [http://localhost:3000](http://localhost:3000).
+   The application will be accessible at [http://localhost:3000](http://localhost:5173).
 
 ## Usage
 
@@ -70,6 +72,4 @@ We welcome contributions! If you find any issues or have suggestions for improve
 ---
 
 **Happy text transforming! 🚀**
-```
 
-Replace `"path/to/your/project/screenshot.png"` with the actual path or URL to a screenshot of your TextUtils project. Also, update the demo URL with the actual live demo link if applicable. Feel free to further customize the content based on your preferences and project details.
