@@ -6,15 +6,16 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-export default function CommentBoxTextarea() {
+export default function CommentBoxTextarea(props) {
   const [text, setText] = useState();
   let textLength;
   let countWords;
   let readingTime;
   text ? (textLength = text.length + 1) : (textLength = 0);
   text ? (countWords = text.split(" ").length) : (countWords = 0);
-  readingTime = (countWords * 0.0032).toFixed(3);
+  readingTime = (countWords * 0.0022).toFixed(3);
 
   const onChangeHandle = (event) => {
     setText(event.target.value);
@@ -26,6 +27,7 @@ export default function CommentBoxTextarea() {
     if (text) {
       const newText = text.toUpperCase();
       setText(newText);
+      props.toggleAlert("Converted to UpperCase");
     }
   };
 
@@ -35,6 +37,7 @@ export default function CommentBoxTextarea() {
     if (text) {
       const newText = text.toLowerCase();
       setText(newText);
+      props.toggleAlert("Converted to LowerCase");
     }
   };
 
@@ -54,6 +57,7 @@ export default function CommentBoxTextarea() {
       });
       const newText = newWordArray.join(" ");
       setText(newText);
+      props.toggleAlert("Converted to Capitalised");
     }
   };
 
@@ -76,20 +80,23 @@ export default function CommentBoxTextarea() {
       });
       const newText = newSentencesArray.join(". ");
       setText(newText);
+      props.toggleAlert("Converted to SentenceCase");
     }
   };
 
   const downloadButton = (event) => {
     event.preventDefault();
-    const blob = new Blob([text], { type: "text/plain" });
+    if (text) {
+      const blob = new Blob([text], { type: "text/plain" });
 
-    const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.download = "your-text.txt";
-    link.click();
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "your-text.txt";
+      link.click();
 
-    window.URL.revokeObjectURL(link.href);
-    console.log("hy");
+      window.URL.revokeObjectURL(link.href);
+      props.toggleAlert("Download started");
+    }
   };
 
   const copyToClipboard = (event) => {
@@ -99,57 +106,71 @@ export default function CommentBoxTextarea() {
   const clearInput = (e) => {
     e.preventDefault();
     setText("");
+    props.toggleAlert("Copied to clipboard");
   };
 
   return (
-    <div className="relative w-[100%]">
+    <div className="relative w-[100%] ">
       <Textarea
         color="green"
         label="Enter here"
         rows={6}
         value={text}
         onChange={onChangeHandle}
+        className=" dark:bg-overlayDarkColors-dp01 dark:text-gray-50 "
       />
 
       <div className="flex w-full justify-end py-1.5 ">
         <div className="flex flex-wrap gap-2 ">
-          <Button size="sm" className="rounded-md" onClick={convertUpperCase}>
+          <Button
+            size="md"
+            className=" rounded-md dark:bg-overlayDarkColors-dp16"
+            onClick={convertUpperCase}
+          >
             UpperCase
           </Button>
-          <Button size="sm" className="rounded-md" onClick={convertLowerCase}>
+          <Button
+            size="sm"
+            className=" rounded-md dark:bg-overlayDarkColors-dp16"
+            onClick={convertLowerCase}
+          >
             LowerCase
           </Button>
           {/* prettier-ignore */}
-          <Button size="sm" className="rounded-md" onClick={convertCapitaliseCase}>
+          <Button size="sm" className="rounded-md dark:bg-overlayDarkColors-dp16 " onClick={convertCapitaliseCase}>
             Capitalise
           </Button>
           {/* prettier-ignore */}
-          <Button size="sm" className="rounded-md" onClick={convertSentenceCase}>
+          <Button size="sm" className="rounded-md dark:bg-overlayDarkColors-dp16 " onClick={convertSentenceCase}>
             sentence Case
           </Button>
 
           <Popover>
             <PopoverHandler onClick={downloadButton}>
               {/* prettier-ignore */}
-              <Button size="sm" className="rounded-md" >
+              <Button size="sm" className="rounded-md dark:bg-overlayDarkColors-dp16 " >
                 Download
               </Button>
             </PopoverHandler>
-            <PopoverContent>Download Started</PopoverContent>
+            <PopoverContent className="text-textColor-high border-none bg-gray-600">
+              Download Started
+            </PopoverContent>
           </Popover>
 
           <Popover>
             <PopoverHandler onClick={copyToClipboard}>
               {/* prettier-ignore */}
-              <Button size="sm" className="rounded-md"  >
+              <Button size="sm" className="rounded-md dark:bg-overlayDarkColors-dp16 "  >
                 Copy to ClipBoard
               </Button>
             </PopoverHandler>
-            <PopoverContent>Copied</PopoverContent>
+            <PopoverContent className="text-textColor-high border-none bg-gray-600">
+              Copied
+            </PopoverContent>
           </Popover>
 
           {/* prettier-ignore */}
-          <Button size="sm" color="red" variant="text" className="rounded-md" onClick={clearInput}>
+          <Button size="sm" color="red" variant="text" className="rounded-md dark:text-yellow-300/90 dark:hover:bg-yellow-200/10" onClick={clearInput}>
             Clear
           </Button>
         </div>
@@ -170,3 +191,7 @@ export default function CommentBoxTextarea() {
     </div>
   );
 }
+
+CommentBoxTextarea.propTypes = {
+  toggleAlert: PropTypes.func.isRequired,
+};
