@@ -23,7 +23,7 @@ export default function MaterialNavbar(props) {
   return (
     <>
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 dark:border-transparent dark:bg-overlayDarkColors-dp01 lg:px-8 lg:py-4">
-        <div className="dark:text-textColor-high flex items-center justify-between  text-blue-gray-900">
+        <div className="flex items-center justify-between text-blue-gray-900  dark:text-textColor-high">
           <Typography
             as="a"
             href="#"
@@ -104,7 +104,7 @@ export default function MaterialNavbar(props) {
         <Collapse open={openNav}>
           <div className="flex items-center gap-x-1">
             <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Home</span>
+              <span>About</span>
             </Button>
           </div>
         </Collapse>

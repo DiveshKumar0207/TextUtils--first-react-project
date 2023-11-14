@@ -14,7 +14,11 @@ export default function CommentBoxTextarea(props) {
   let countWords;
   let readingTime;
   text ? (textLength = text.length + 1) : (textLength = 0);
-  text ? (countWords = text.split(" ").length) : (countWords = 0);
+  text
+    ? (countWords = text.split(/\s+/).filter((element) => {
+        return element.length !== 0;
+      }).length)
+    : (countWords = 0);
   readingTime = (countWords * 0.0022).toFixed(3);
 
   const onChangeHandle = (event) => {
@@ -95,7 +99,6 @@ export default function CommentBoxTextarea(props) {
       link.click();
 
       window.URL.revokeObjectURL(link.href);
-      props.toggleAlert("Download started");
     }
   };
 
@@ -123,7 +126,7 @@ export default function CommentBoxTextarea(props) {
       <div className="flex w-full justify-end py-1.5 ">
         <div className="flex flex-wrap gap-2 ">
           <Button
-            size="md"
+            size="sm"
             className=" rounded-md dark:bg-overlayDarkColors-dp16"
             onClick={convertUpperCase}
           >
@@ -152,9 +155,13 @@ export default function CommentBoxTextarea(props) {
                 Download
               </Button>
             </PopoverHandler>
-            <PopoverContent className="text-textColor-high border-none bg-gray-600">
-              Download Started
-            </PopoverContent>
+
+            {/* if text exist then it shows */}
+            {text && (
+              <PopoverContent className="border-none bg-gray-600 text-textColor-high">
+                Download Started
+              </PopoverContent>
+            )}
           </Popover>
 
           <Popover>
@@ -164,9 +171,13 @@ export default function CommentBoxTextarea(props) {
                 Copy to ClipBoard
               </Button>
             </PopoverHandler>
-            <PopoverContent className="text-textColor-high border-none bg-gray-600">
-              Copied
-            </PopoverContent>
+
+            {/* if text exist then it shows */}
+            {text && (
+              <PopoverContent className="border-none bg-gray-600 text-textColor-high">
+                Copied
+              </PopoverContent>
+            )}
           </Popover>
 
           {/* prettier-ignore */}

@@ -19,12 +19,15 @@ function App() {
       message: usermsg,
     });
 
-    setTimeout(() => {
-      setAlert({
-        state: "hidden",
-        message: null,
-      });
-    }, 1500);
+    {
+      alert.message &&
+        setTimeout(() => {
+          setAlert({
+            state: "hidden",
+            message: null,
+          });
+        }, 1500);
+    }
   };
 
   const togglemode = () => {
@@ -66,7 +69,9 @@ function App() {
           />
         </div>
 
-        <AlertCustomStyles mode={mode} alert={alert} />
+        <div className="h-5 p-2">
+          <AlertCustomStyles mode={mode} alert={alert} />
+        </div>
 
         <div className=" m-10 flex justify-center p-10">
           <CommentBoxTextarea toggleAlert={toggleAlert} />
