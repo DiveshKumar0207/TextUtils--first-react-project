@@ -19,15 +19,12 @@ function App() {
       message: usermsg,
     });
 
-    {
-      alert.message &&
-        setTimeout(() => {
-          setAlert({
-            state: "hidden",
-            message: null,
-          });
-        }, 1500);
-    }
+    setTimeout(() => {
+      setAlert({
+        state: "hidden",
+        message: null,
+      });
+    }, 1500);
   };
 
   const togglemode = () => {
@@ -69,7 +66,7 @@ function App() {
           />
         </div>
 
-        <div className="h-5 p-2">
+        <div className="h-5 py-2">
           <AlertCustomStyles mode={mode} alert={alert} />
         </div>
 
